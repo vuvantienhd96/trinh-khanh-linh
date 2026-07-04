@@ -244,23 +244,161 @@ button {
 }
 
 @media (max-width: 768px) {
-  .peeking-cat {
-    width: 130px;
-    top: -60px;
-    left: -20px;
+  .App {
+    padding: 15px 0;
+    align-items: flex-start;
   }
+
+  .container {
+    width: 95%;
+  }
+
+  .peeking-cat {
+    width: 110px;
+    top: -50px;
+    left: -15px;
+  }
+
+  .card {
+    padding: 2rem 1rem 1.5rem 1rem;
+    border-radius: 20px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    margin-top: 5px;
+  }
+
   .memory-layout {
     flex-direction: column;
+    gap: 15px;
+    text-align: center;
   }
+
+  .memory-text {
+    text-align: center;
+  }
+
+  .memory-text p {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .photo-frame {
+    width: 100%;
+  }
+
+  .photo-wrapper {
+    width: 100%;
+  }
+
   .photo-placeholder {
     width: 100%;
-    height: 300px;
+    height: auto;
+    max-height: 55vh;
+    aspect-ratio: 3/4;
     object-fit: cover;
     object-position: center top;
   }
-  h1 { font-size: 2.2rem; }
+
+  .photo-frame::before {
+    top: -8px;
+    right: -5px;
+    font-size: 1.1rem;
+  }
+
+  button {
+    padding: 10px 22px;
+    font-size: 0.95rem;
+    margin: 6px;
+  }
+
+  .internal-gif {
+    width: 140px;
+    height: 140px;
+  }
+
+  .music-btn {
+    width: 42px;
+    height: 42px;
+    top: 12px;
+    right: 12px;
+  }
+
+  .music-icon {
+    font-size: 1.2rem;
+  }
+}
+
+/* Très petit écran (iPhone SE, etc.) */
+@media (max-width: 400px) {
+  .App {
+    padding: 10px 0;
+  }
+
+  .container {
+    width: 97%;
+  }
+
+  .peeking-cat {
+    width: 90px;
+    top: -42px;
+    left: -10px;
+  }
+
   .card {
-    padding: 2.5rem 1.2rem 1.5rem 1.2rem;
+    padding: 1.8rem 0.8rem 1.2rem 0.8rem;
+    border-radius: 16px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .photo-placeholder {
+    max-height: 45vh;
+  }
+
+  .memory-text p {
+    font-size: 0.9rem !important;
+  }
+
+  button {
+    padding: 9px 18px;
+    font-size: 0.85rem;
+  }
+
+  .internal-gif {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+/* Paysage sur mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .memory-layout {
+    flex-direction: row;
+    gap: 15px;
+    text-align: left;
+  }
+
+  .memory-text {
+    text-align: left;
+  }
+
+  .photo-placeholder {
+    width: 200px;
+    height: 250px;
+    max-height: none;
+    aspect-ratio: auto;
+  }
+
+  .photo-frame {
+    width: auto;
+  }
+
+  .photo-wrapper {
+    width: auto;
   }
 }
 
@@ -412,6 +550,16 @@ button {
   opacity: 1;
 }
 
+/* Trên mobile hiện hint luôn vì không hover được */
+@media (max-width: 768px) {
+  .zoom-hint {
+    opacity: 0.7;
+    font-size: 0.7rem;
+    bottom: 8px;
+    padding: 4px 10px;
+  }
+}
+
 .photo-wrapper {
   cursor: pointer;
 }
@@ -419,11 +567,24 @@ button {
 @media (max-width: 768px) {
   .zoom-image {
     max-width: 92vw;
-    max-height: 65vh;
+    max-height: 60vh;
+    border-radius: 14px;
   }
   .zoom-caption {
-    font-size: 0.95rem;
-    padding: 0 15px;
+    font-size: 0.85rem;
+    padding: 0 12px;
+    margin-top: 12px;
+    max-width: 90vw;
+  }
+  .zoom-close {
+    top: -10px;
+    right: -5px;
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+  }
+  .zoom-glow {
+    inset: -10px;
   }
 }
 
