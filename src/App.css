@@ -12,11 +12,11 @@ body, html, #root {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   background-color: var(--bg-color);
   color: white;
   font-family: 'Nunito', sans-serif;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .heart-bg {
@@ -46,8 +46,9 @@ body, html, #root {
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
+  padding: 30px 0;
 }
 
 .container {
@@ -123,13 +124,95 @@ h1 {
 }
 
 .photo-placeholder {
-  width: 350px;
-  height: 350px; 
-    object-fit: contain; 
-    background-color: rgba(0, 0, 0, 0.2);
+  width: 320px;
+  height: 420px;
+  object-fit: cover;
+  object-position: center top;
+  background-color: rgba(0, 0, 0, 0.3);
   border-radius: 20px;
-  border: 3px solid var(--primary-pink);
-  box-shadow: 0 0 15px var(--primary-pink);
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  box-shadow: 
+    0 0 20px rgba(255, 20, 147, 0.4),
+    0 0 60px rgba(255, 20, 147, 0.1),
+    inset 0 0 30px rgba(0, 0, 0, 0.2);
+  position: relative;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  animation: photoGlow 3s ease-in-out infinite alternate;
+  flex-shrink: 0;
+}
+
+.photo-placeholder:hover {
+  transform: scale(1.03) rotate(1deg);
+  box-shadow: 
+    0 0 30px rgba(255, 20, 147, 0.6),
+    0 0 80px rgba(255, 20, 147, 0.2),
+    inset 0 0 30px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes photoGlow {
+  0% {
+    box-shadow: 
+      0 0 20px rgba(255, 20, 147, 0.3),
+      0 0 40px rgba(255, 20, 147, 0.1);
+  }
+  100% {
+    box-shadow: 
+      0 0 25px rgba(255, 20, 147, 0.5),
+      0 0 60px rgba(255, 20, 147, 0.15),
+      0 0 100px rgba(168, 85, 247, 0.05);
+  }
+}
+
+/* Shimmer overlay trên ảnh */
+.photo-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+
+.photo-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.08),
+    transparent
+  );
+  animation: shimmer 4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  50% { left: 150%; }
+  100% { left: 150%; }
+}
+
+/* Decorative frame cho ảnh */
+.photo-frame {
+  position: relative;
+  display: inline-block;
+}
+
+.photo-frame::before {
+  content: '💕';
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  font-size: 1.4rem;
+  z-index: 5;
+  animation: floatEmoji 3s ease-in-out infinite;
+}
+
+@keyframes floatEmoji {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(10deg); }
 }
 
 button {
@@ -171,11 +254,14 @@ button {
   }
   .photo-placeholder {
     width: 100%;
-    height: 250px;
-    object-fit: contain;
-
+    height: 300px;
+    object-fit: cover;
+    object-position: center top;
   }
   h1 { font-size: 2.2rem; }
+  .card {
+    padding: 2.5rem 1.2rem 1.5rem 1.2rem;
+  }
 }
 
 
@@ -216,4 +302,166 @@ button {
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+
+/* ===== Zoom Lightbox ===== */
+.zoom-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+}
+
+.zoom-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: default;
+}
+
+.zoom-glow {
+  position: absolute;
+  inset: -20px;
+  border-radius: 30px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 20, 147, 0.25) 0%,
+    rgba(168, 85, 247, 0.15) 40%,
+    transparent 70%
+  );
+  filter: blur(30px);
+  z-index: -1;
+  animation: zoomGlowPulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes zoomGlowPulse {
+  0% { opacity: 0.6; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1.05); }
+}
+
+.zoom-image {
+  max-width: 80vw;
+  max-height: 75vh;
+  object-fit: contain;
+  border-radius: 20px;
+  border: 3px solid rgba(255, 20, 147, 0.5);
+  box-shadow:
+    0 0 40px rgba(255, 20, 147, 0.4),
+    0 0 80px rgba(255, 20, 147, 0.15),
+    0 25px 60px rgba(0, 0, 0, 0.5);
+}
+
+.zoom-caption {
+  margin-top: 20px;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: center;
+  max-width: 500px;
+  line-height: 1.5;
+  font-style: italic;
+  text-shadow: 0 0 10px rgba(255, 20, 147, 0.3);
+}
+
+.zoom-close {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(30, 30, 30, 0.9);
+  border: 2px solid rgba(255, 20, 147, 0.6);
+  color: #ff69b4;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(255, 20, 147, 0.3);
+  padding: 0;
+  margin: 0;
+}
+
+/* Zoom hint trên ảnh */
+.zoom-hint {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  padding: 5px 12px;
+  border-radius: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.photo-wrapper:hover .zoom-hint {
+  opacity: 1;
+}
+
+.photo-wrapper {
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .zoom-image {
+    max-width: 92vw;
+    max-height: 65vh;
+  }
+  .zoom-caption {
+    font-size: 0.95rem;
+    padding: 0 15px;
+  }
+}
+
+
+/* Typing cursor nhấp nháy */
+.typing-cursor {
+  display: inline-block;
+  color: var(--primary-pink);
+  font-weight: bold;
+  animation: cursorBlink 0.8s step-end infinite;
+  margin-left: 2px;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+
+/* Trái tim bay lên khi click */
+.click-heart {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  animation: heartFloat 2.5s ease-out forwards;
+}
+
+@keyframes heartFloat {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-60px) scale(1.2) rotate(15deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-250px) scale(0.4) rotate(40deg) translateX(20px);
+  }
 }

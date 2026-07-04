@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import './App.css';
 import Welcome from './components/Welcome';
 import Memories from './components/Memories';
@@ -43,6 +43,29 @@ function App() {
       }
     }
   };
+
+  // Click tạo trái tim bay lên
+  const handleClick = useCallback((e) => {
+    const hearts = ['❤️', '💕', '💗', '💖', '🩷', '💘', '✨'];
+    const count = 3 + Math.floor(Math.random() * 3);
+    for (let i = 0; i < count; i++) {
+      setTimeout(() => {
+        const heart = document.createElement('div');
+        heart.className = 'click-heart';
+        heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.style.left = (e.clientX + (Math.random() - 0.5) * 30) + 'px';
+        heart.style.top = (e.clientY + (Math.random() - 0.5) * 20) + 'px';
+        heart.style.fontSize = (14 + Math.random() * 16) + 'px';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 3000);
+      }, i * 60);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  }, [handleClick]);
 
   const createHearts = () => {
     const hearts = [];
