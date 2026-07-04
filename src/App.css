@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700&display=swap');
+
+:root {
+  --bg-color: #000000;
+  --primary-pink: #ff1493;
+  --glass-bg: rgba(20, 20, 20, 0.95);
+  --glass-border: 2px solid rgba(255, 20, 147, 0.6);
+  --neon-glow: 0 0 25px rgba(255, 20, 147, 0.5);
+}
+
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-color);
+  color: white;
+  font-family: 'Nunito', sans-serif;
+  overflow: hidden;
+}
+
+.heart-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.heart-particle {
+  position: absolute;
+  color: #ff1493;
+  animation: heartbeat var(--duration) ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); opacity: 0.1; }
+  50% { transform: scale(1.4); opacity: 0.4; }
+  100% { transform: scale(1); opacity: 0.1; }
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  max-width: 800px;
+  z-index: 10;
+  overflow: visible; 
+}
+
+.peeking-cat {
+  width: 190px; 
+  height: auto;
+  z-index: 20; 
+  position: absolute;
+  
+  top: -85px;  
+  left: -30px;  
+  
+  filter: drop-shadow(0 5px 5px rgba(0,0,0,0.5));
+  pointer-events: none;
+}
+
+.card {
+  z-index: 10; 
+  background: var(--glass-bg);
+  border: var(--glass-border);
+  padding: 3rem 2rem 2rem 2rem;
+  border-radius: 30px;
+  box-shadow: 0 0 50px rgba(255, 20, 147, 0.3);
+  width: 100%;
+  text-align: center;
+  position: relative;
+}
+
+h1 {
+  font-family: 'Pacifico', cursive;
+  color: var(--primary-pink);
+  text-shadow: var(--neon-glow);
+  font-size: 3rem;
+  margin-top: 10px;
+  font-weight: 400;
+}
+
+.gif-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.internal-gif {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 20px;
+  border: 2px solid var(--primary-pink);
+  box-shadow: 0 0 15px rgba(255, 20, 147, 0.3);
+}
+
+.memory-layout {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  text-align: left;
+}
+
+.memory-text {
+  flex: 1;
+}
+
+.photo-placeholder {
+  width: 350px;
+  height: 350px; 
+    object-fit: contain; 
+    background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  border: 3px solid var(--primary-pink);
+  box-shadow: 0 0 15px var(--primary-pink);
+}
+
+button {
+  padding: 12px 30px;
+  border-radius: 50px;
+  border: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  font-family: 'Nunito', sans-serif;
+  margin: 10px;
+}
+
+.btn-primary {
+  background: var(--primary-pink);
+  color: white;
+  box-shadow: 0 0 20px var(--primary-pink);
+}
+
+.btn-primary:hover {
+  transform: scale(1.1);
+}
+
+.btn-no {
+  background: #333;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+@media (max-width: 768px) {
+  .peeking-cat {
+    width: 130px;
+    top: -60px;
+    left: -20px;
+  }
+  .memory-layout {
+    flex-direction: column;
+  }
+  .photo-placeholder {
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+
+  }
+  h1 { font-size: 2.2rem; }
+}
+
+
+/* Nút bật/tắt nhạc */
+.music-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(20, 20, 20, 0.9);
+  border: 2px solid rgba(255, 20, 147, 0.6);
+  box-shadow: 0 0 15px rgba(255, 20, 147, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 9999;
+  padding: 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.music-btn:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 25px rgba(255, 20, 147, 0.6);
+}
+
+.music-icon {
+  font-size: 1.4rem;
+  display: inline-block;
+}
+
+.music-icon.spinning {
+  animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
