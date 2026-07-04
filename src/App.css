@@ -60,7 +60,8 @@ body, html, #root {
   width: 90%;
   max-width: 800px;
   z-index: 10;
-  overflow: visible; 
+  overflow: visible;
+  box-sizing: border-box;
 }
 
 .peeking-cat {
@@ -252,57 +253,67 @@ button {
 /* Tất cả mobile */
 @media (max-width: 768px) {
   .App {
-    padding: 20px 12px;
+    padding: 20px 16px;
     align-items: flex-start;
     min-height: 100dvh;
+    box-sizing: border-box;
   }
 
   .container {
     width: 100%;
-    padding: 0 8px;
+    max-width: 100%;
+    padding: 0;
     box-sizing: border-box;
   }
 
   .peeking-cat {
-    width: 100px;
-    top: -45px;
-    left: -10px;
+    width: 90px;
+    top: -40px;
+    left: -5px;
   }
 
   .card {
-    padding: 1.8rem 1rem 1.5rem 1rem;
-    border-radius: 22px;
-    box-shadow: 0 0 30px rgba(255, 20, 147, 0.25);
+    padding: 1.5rem 0.8rem 1.2rem 0.8rem;
+    border-radius: 20px;
+    box-shadow: 0 0 25px rgba(255, 20, 147, 0.25);
     box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
   }
 
   h1 {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     margin-top: 5px;
     line-height: 1.3;
+    padding: 0 4px;
   }
 
   .memory-layout {
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
     text-align: center;
-    padding: 0 4px;
+    padding: 0;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .memory-text {
     text-align: center;
-    padding: 0 6px;
+    padding: 0 2px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .memory-text p {
-    font-size: 1rem !important;
-    line-height: 1.6 !important;
-    padding: 0 4px;
+    font-size: 0.92rem !important;
+    line-height: 1.55 !important;
+    padding: 0;
+    word-break: break-word;
   }
 
   .photo-frame {
     width: 100%;
-    padding: 0 4px;
+    padding: 0;
     box-sizing: border-box;
   }
 
@@ -313,44 +324,44 @@ button {
   .photo-placeholder {
     width: 100%;
     height: auto;
-    max-height: 50vh;
+    max-height: 46vh;
     aspect-ratio: 3/4;
     object-fit: cover;
     object-position: center 20%;
-    border-radius: 16px;
+    border-radius: 14px;
   }
 
   .photo-frame::before {
-    top: -8px;
-    right: 2px;
-    font-size: 1.1rem;
+    top: -6px;
+    right: 4px;
+    font-size: 1rem;
   }
 
   button {
-    padding: 11px 24px;
-    font-size: 0.95rem;
-    margin: 6px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    margin: 5px;
   }
 
   .internal-gif {
-    width: 140px;
-    height: 140px;
+    width: 130px;
+    height: 130px;
   }
 
   .music-btn {
-    width: 42px;
-    height: 42px;
-    top: 12px;
-    right: 12px;
+    width: 40px;
+    height: 40px;
+    top: 10px;
+    right: 10px;
   }
 
   .music-icon {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 
   .btn-no {
-    font-size: 0.9rem;
-    padding: 10px 20px;
+    font-size: 0.85rem;
+    padding: 9px 16px;
   }
 }
 
@@ -358,53 +369,53 @@ button {
    Width: 390-440px, Height: 844-960px */
 @media (min-width: 390px) and (max-width: 440px) and (min-height: 800px) {
   .App {
-    padding: 25px 14px;
+    padding: 22px 16px;
   }
 
   .container {
     width: 100%;
-    padding: 0 6px;
+    padding: 0;
     box-sizing: border-box;
   }
 
   .card {
-    padding: 2rem 1.2rem 1.8rem 1.2rem;
-    border-radius: 24px;
+    padding: 1.8rem 1rem 1.5rem 1rem;
+    border-radius: 22px;
   }
 
   h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   .memory-layout {
-    gap: 18px;
-    padding: 0 2px;
+    gap: 16px;
+    padding: 0;
   }
 
   .photo-placeholder {
-    max-height: 48vh;
-    border-radius: 18px;
+    max-height: 44vh;
+    border-radius: 16px;
   }
 
   .memory-text p {
-    font-size: 1.05rem !important;
-    line-height: 1.65 !important;
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
   }
 
   button {
-    padding: 12px 28px;
-    font-size: 1rem;
+    padding: 11px 24px;
+    font-size: 0.95rem;
   }
 
   .peeking-cat {
-    width: 120px;
-    top: -55px;
-    left: -12px;
+    width: 100px;
+    top: -45px;
+    left: -5px;
   }
 
   .internal-gif {
-    width: 160px;
-    height: 160px;
+    width: 150px;
+    height: 150px;
   }
 }
 
